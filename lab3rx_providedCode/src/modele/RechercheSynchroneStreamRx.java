@@ -18,12 +18,12 @@ public class RechercheSynchroneStreamRx extends RechercheSynchroneAbstraite impl
         // Appliquer en linéarisant (en ordonnant suivant le temps) la fonction (h -> Observable.fromCallable(() -> rechercheSync(h, l, client))). Indication : voir la méthode Observable.flatMap.
         return ob.flatMap(h -> Observable.fromCallable(
                 () -> rechercheSync(h, l, client))
-        // Pour une exécution multi-tâche, ajouter un appel à subscribeOn(Schedulers.io()) après l'appel à fromCallable.
+                // Pour une exécution multi-tâche, ajouter un appel à subscribeOn(Schedulers.io()) après l'appel à fromCallable.
                 .subscribeOn(Schedulers.io()))
-        // Retirer les options vides.
-            .filter(map -> map.isPresent())
-        // Prendre la première valeur ou à défaut l'option vide. Indication : voir la méthode Observable.blockingFirst.
-            .blockingFirst();
+                // Retirer les options vides.
+                .filter(map -> map.isPresent())
+                // Prendre la première valeur ou à défaut l'option vide. Indication : voir la méthode Observable.blockingFirst.
+                .blockingFirst();
     }
 
     @Override
