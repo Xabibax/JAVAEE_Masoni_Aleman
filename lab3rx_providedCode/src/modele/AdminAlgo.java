@@ -1,7 +1,5 @@
 package modele;
 
-import static configuration.JAXRS.TYPE_MEDIA;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -15,5 +13,5 @@ public interface AdminAlgo {
 	@Path("admin/recherche")
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_XML)
-	void changerAlgorithmeRecherche(@QueryParam("algo") NomAlgorithme algo);
+	void changerAlgorithmeRecherche(NomAlgorithme algo);
 }
