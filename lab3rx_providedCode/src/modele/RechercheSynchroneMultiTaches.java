@@ -16,8 +16,7 @@ import infrastructure.jaxrs.LienVersRessource;
 public class RechercheSynchroneMultiTaches extends RechercheAsynchroneAbstraite implements AlgorithmeRecherche {
 
 	@Override
-	public Optional<HyperLien<Livre>> chercher(Livre l, List<HyperLien<BibliothequeArchive>> bibliotheques,
-			Client client) {
+	public Optional<HyperLien<Livre>> chercher(Livre l, List<HyperLien<BibliothequeArchive>> bibliotheques, Client client) {
 		// défini un objet qui va se décrémenter à chaque fois qu'une tâche sera finie
 		CountDownLatch latch = new CountDownLatch(bibliotheques.size());
 		// agent qui gère les tâches
@@ -64,7 +63,7 @@ public class RechercheSynchroneMultiTaches extends RechercheAsynchroneAbstraite 
 
 			@Override
 			public String getNom() {
-				return "recherche async multi";
+				return "recherche sync multi";
 			}
 		};
 	}
