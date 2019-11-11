@@ -19,8 +19,10 @@ import infrastructure.jaxrs.HyperLien;
 import infrastructure.jaxrs.HyperLiens;
 import infrastructure.jaxrs.LienVersRessource;
 
+import static configuration.JAXRS.*;
+
 @Singleton
-@Path("portail")
+@Path(CHEMIN_PORTAIL)
 public class ImplemPortail implements Portail {
 
 	ConcurrentMap<NomAlgorithme, AlgorithmeRecherche> tableType;
@@ -59,30 +61,35 @@ public class ImplemPortail implements Portail {
 
 	@Override
 	public Future<Optional<HyperLien<Livre>>> chercherAsynchrone(Livre l, AsyncResponse ar) {
-		for(HyperLien<BibliothequeArchive> h : hyperliens) {
-			Optional<HyperLien<Livre>> ol = LienVersRessource.proxy(client,h, BibliothequeArchive.class).chercher(l);
-			if(ol.isPresent()){
-				ar.resume(ol);
-			} 
-		}
-		ar.resume(Optional.empty());
-		return null;
+
+//
+//		for(HyperLien<BibliothequeArchive> h : hyperliens) {
+//			Optional<HyperLien<Livre>> ol = LienVersRessource.proxy(client,h, BibliothequeArchive.class).chercher(l);
+//			if(ol.isPresent()){
+//				ar.resume(ol);
+//			}
+//		}
+//		ar.resume(Optional.empty());
+		return ImplementationAppelsAsynchrones.rechercheAsynchroneBibliotheque(new ImplemBibliotheque(), l, ar);
 	}
 
 	@Override
 	public HyperLiens<Livre> repertorier() {
 		return new HyperLiens(
 				this.hyperliens.parallelStream()
-				.map(n -> (LienVersRessource.proxy(client,n, BibliothequeArchive.class)).repertorier().getLiens().stream())
-				.flatMap(x -> x)
-				.collect(Collectors.toList())
-				);
+					.map(n -> (LienVersRessource.proxy(client,n, BibliothequeArchive.class))
+					.repertorier()
+					.getLiens()
+					.stream())
+					.flatMap(x -> x)
+					.collect(Collectors.toList())
+		);
 	}
 
 	@Override
-	public void changerAlgorithmeRecherche(NomAlgorithme algo) {
-		if(this.tableType.containsKey(algo)) {
-			this.algo = this.tableType.get(algo);
+	public void changerAlgorithmeRecherche(NomAlgorithme nom) {
+		if(this.tableType.containsKey(nom)) {
+			this.algo = this.tableType.get(nom);
 		}
 	}
 }

@@ -24,6 +24,12 @@ public class AdapterClientReponsesPUTEnOption implements ReaderInterceptor {
 			Type[] args =  t.getActualTypeArguments();
 			Class<?> classe = Types.convertirTypeEnClasse(args[0]);
 			reponse.setType(classe);
+			// reponse.setType(
+			// 	Types.convertirTypeEnClasse(
+			// 		((ParameterizedType) reponse.getGenericType())
+			// 			.getActualTypeArguments()[0]
+			// 	)
+			// );
 			System.out.println("------------ OK");
 			return Optional.of(reponse.proceed());
 		} else {
