@@ -21,3 +21,17 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+codeFourni_ServeurBibliotheque/.settings/
+
+codeFourni_ClientBibliotheque/target/
+
+codeFourni_ServeurBibliotheque/target/
+
+lab3rx_providedCode/target/
+
+lab3rx_providedCode/.settings/
+
+lab3rx_providedCode/.idea/
+
+lab3rx_providedCode/lab3rx_providedCode.iml

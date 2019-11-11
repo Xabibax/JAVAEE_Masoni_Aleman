@@ -1,5 +1,5 @@
 package modele;
 
-public interface Portail extends Bibliotheque, AdminAlgo{
+public interface Portail extends Bibliotheque, AdminAlgo {
 
 }
